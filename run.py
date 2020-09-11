@@ -2,6 +2,7 @@ from simclr import SimCLR
 import yaml
 from data_aug.dataset_wrapper import DataSetWrapper
 import argparse
+import os
 
 
 def main():
@@ -9,10 +10,12 @@ def main():
     parser.add_argument('config', type=str, help='Path to config')
     config = parser.parse_args().config
 
-    config = yaml.load(open(config, "r"), Loader=yaml.FullLoader)
-    dataset = DataSetWrapper(config['batch_size'], **config['dataset'])
+    exp_name = os.path.splitext(os.path.basename(config))[0]
 
-    simclr = SimCLR(dataset, config)
+    config = yaml.load(open(config, "r"), Loader=yaml.FullLoader)
+    dataset = DataSetWrapper(batch_size=config['batch_size'], **config['dataset'])
+
+    simclr = SimCLR(dataset, config, exp_name)
     simclr.train()
 
 

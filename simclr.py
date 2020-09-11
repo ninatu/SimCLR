@@ -25,15 +25,15 @@ torch.manual_seed(0)
 def _save_config_file(model_checkpoints_folder):
     if not os.path.exists(model_checkpoints_folder):
         os.makedirs(model_checkpoints_folder)
-        shutil.copy('./config.yaml', os.path.join(model_checkpoints_folder, 'config.yaml'))
+        shutil.copy('configs/config.yaml', os.path.join(model_checkpoints_folder, 'config.yaml'))
 
 
 class SimCLR(object):
 
-    def __init__(self, dataset, config):
+    def __init__(self, dataset, config, exp_name):
         self.config = config
         self.device = self._get_device()
-        self.writer = SummaryWriter()
+        self.writer = SummaryWriter(log_dir=os.path.join('runs', exp_name))
         self.dataset = dataset
         self.nt_xent_criterion = NTXentLoss(self.device, config['batch_size'], **config['loss'])
 
@@ -66,7 +66,9 @@ class SimCLR(object):
 
         optimizer = torch.optim.Adam(model.parameters(), 3e-4, weight_decay=eval(self.config['weight_decay']))
 
-        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=len(train_loader), eta_min=0,
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,
+                                                               T_max=int(len(train_loader) / self.config['T_max_decrease']),
+                                                               eta_min=0,
                                                                last_epoch=-1)
 
         if apex_support and self.config['fp16_precision']:
@@ -116,7 +118,7 @@ class SimCLR(object):
                 valid_n_iter += 1
 
             # warmup for the first 10 epochs
-            if epoch_counter >= 10:
+            if epoch_counter >= self.config['epoch_warmup']:
                 scheduler.step()
             self.writer.add_scalar('cosine_lr_decay', scheduler.get_lr()[0], global_step=n_iter)
 
