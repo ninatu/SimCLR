@@ -1,4 +1,4 @@
-batch_size: 256 #512
+batch_size: 256
 epochs: 80
 eval_every_n_epochs: 1
 log_every_n_steps: 50
@@ -7,11 +7,8 @@ fp16_precision: False
 
 T_max_decrease: 10
 
-#fine_tune_from: None
-#epoch_warmup: 1
-
-fine_tune_from: exp_1_mood
-epoch_warmup: 0
+fine_tune_from: None
+epoch_warmup: 1
 
 model:
   out_dim: 256
@@ -25,86 +22,86 @@ dataset:
     num_workers: 16
     valid_size: 0.05
     train:
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/brain_train/2d_axis_0
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/brain/train_folds_10.csv
+      - image_root: # PATH to BRAIN slices along axis 0
+        folds_path: # PATH to BRIAN' .cvs file with fold cross validation index
         fold: 0
         split: train
         channels3: True
         return_image_name: True
 
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/brain_train/2d_axis_1
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/brain/train_folds_10.csv
+      - image_root: # PATH to BRAIN slices along axis 1
+        folds_path: # PATH to BRIAN' .cvs file with fold cross validation index
         fold: 0
         split: train
         channels3: True
         return_image_name: True
           
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/brain_train/2d_axis_2
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/brain/train_folds_10.csv
+      - image_root: # PATH to BRAIN slices along axis 2
+        folds_path: # PATH to BRIAN' .cvs file with fold cross validation index
         fold: 0
         split: train
         channels3: True
         return_image_name: True
 
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/abdom_train/2d_axis_0
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/abdom/train_folds_10.csv
+      - image_root: # PATH to ABDOMEN slices along axis 0
+        folds_path: # PATH to ABDOMEN' .cvs file with fold cross validation index
         fold: 0
         split: train
         channels3: True
         return_image_name: True
 
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/abdom_train/2d_axis_1
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/abdom/train_folds_10.csv
+      - image_root: # PATH to ABDOMEN slices along axis 1
+        folds_path: # PATH to ABDOMEN' .cvs file with fold cross validation index
         fold: 0
         split: train
         channels3: True
         return_image_name: True
           
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/abdom_train/2d_axis_2
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/abdom/train_folds_10.csv
+      - image_root: # PATH to ABDOMEN slices along axis 2
+        folds_path: # PATH to ABDOMEN' .cvs file with fold cross validation index
         fold: 0
         split: train
         channels3: True
         return_image_name: True
         
     val:
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/brain_train/2d_axis_0
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/brain/train_folds_10.csv
+      - image_root: # PATH to BRAIN slices along axis 0
+        folds_path: # PATH to BRIAN' .cvs file with fold cross validation index
         fold: 0
         split: val
         channels3: True
         return_image_name: True
 
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/brain_train/2d_axis_1
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/brain/train_folds_10.csv
+      - image_root: # PATH to BRAIN slices along axis 1
+        folds_path: # PATH to BRIAN' .cvs file with fold cross validation index
+        fold: 0
+        split: val
+        channels3: True
+        return_image_name: True
+          
+      - image_root: # PATH to BRAIN slices along axis 2
+        folds_path: # PATH to BRIAN' .cvs file with fold cross validation index
         fold: 0
         split: val
         channels3: True
         return_image_name: True
 
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/brain_train/2d_axis_2
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/brain/train_folds_10.csv
+      - image_root: # PATH to ABDOMEN slices along axis 0
+        folds_path: # PATH to ABDOMEN' .cvs file with fold cross validation index
         fold: 0
         split: val
         channels3: True
         return_image_name: True
 
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/abdom_train/2d_axis_0
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/abdom/train_folds_10.csv
+      - image_root: # PATH to ABDOMEN slices along axis 1
+        folds_path: # PATH to ABDOMEN' .cvs file with fold cross validation index
         fold: 0
         split: val
         channels3: True
         return_image_name: True
-
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/abdom_train/2d_axis_1
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/abdom/train_folds_10.csv
-        fold: 0
-        split: val
-        channels3: True
-        return_image_name: True
-
-      - image_root: /gpfs/data/gpfs0/n.tuluptceva/data/mood/preprocessed/abdom_train/2d_axis_2
-        folds_path: /gpfs/data/gpfs0/n.tuluptceva/source/mood_anomaly_detection/folds/abdom/train_folds_10.csv
+          
+      - image_root: # PATH to ABDOMEN slices along axis 2
+        folds_path: # PATH to ABDOMEN' .cvs file with fold cross validation index
         fold: 0
         split: val
         channels3: True

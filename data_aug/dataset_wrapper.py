@@ -8,7 +8,6 @@ from torch.utils.data import Dataset
 
 
 from anomaly_detection.utils.data.datasets import Numpy2DDataset
-from anomaly_detection.utils.data.transforms import Transform2D
 np.random.seed(0)
 
 

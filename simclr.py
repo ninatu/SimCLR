@@ -1,5 +1,5 @@
 import torch
-from models.resnet_simclr import ResNetSimCLR
+from models.simclr import ResNetSimCLR
 from torch.utils.tensorboard import SummaryWriter
 import torch.nn.functional as F
 from loss.nt_xent import NTXentLoss
@@ -22,16 +22,17 @@ import numpy as np
 torch.manual_seed(0)
 
 
-def _save_config_file(model_checkpoints_folder):
+def _save_config_file(model_checkpoints_folder, config_path):
     if not os.path.exists(model_checkpoints_folder):
         os.makedirs(model_checkpoints_folder)
-        shutil.copy('configs/config.yaml', os.path.join(model_checkpoints_folder, 'config.yaml'))
+        shutil.copy(config_path, os.path.join(model_checkpoints_folder, 'config.yaml'))
 
 
 class SimCLR(object):
 
-    def __init__(self, dataset, config, exp_name):
+    def __init__(self, dataset, config, config_path, exp_name):
         self.config = config
+        self.config_path = config_path
         self.device = self._get_device()
         self.writer = SummaryWriter(log_dir=os.path.join('runs', exp_name))
         self.dataset = dataset
@@ -79,7 +80,7 @@ class SimCLR(object):
         model_checkpoints_folder = os.path.join(self.writer.log_dir, 'checkpoints')
 
         # save config file
-        _save_config_file(model_checkpoints_folder)
+        _save_config_file(model_checkpoints_folder, self.config_path)
 
         n_iter = 0
         valid_n_iter = 0

@@ -8,14 +8,14 @@ import os
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('config', type=str, help='Path to config')
-    config = parser.parse_args().config
+    config_path = parser.parse_args().config
 
-    exp_name = os.path.splitext(os.path.basename(config))[0]
+    exp_name = os.path.splitext(os.path.basename(config_path))[0]
 
-    config = yaml.load(open(config, "r"), Loader=yaml.FullLoader)
+    config = yaml.load(open(config_path, "r"), Loader=yaml.FullLoader)
     dataset = DataSetWrapper(batch_size=config['batch_size'], **config['dataset'])
 
-    simclr = SimCLR(dataset, config, exp_name)
+    simclr = SimCLR(dataset, config, config_path, exp_name)
     simclr.train()
 
 
